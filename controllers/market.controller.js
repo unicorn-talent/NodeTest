@@ -37,13 +37,10 @@ const getMarketPrice = async(req, res, next) => {
     const fsyms = req.query.fsyms;
     const tsyms = req.query.tsyms;
 
-    let result = await serviceController.requestData({fsyms, tsyms});
+    const result = await MarketPriceModel.getPrice({fsyms, tsyms});
     if (!result.state) {
-        result = await MarketPriceModel.getPrice({fsyms, tsyms});
-        if (!result.state) {
-            res.status(500).send("no recent data");
-            return;
-        }
+        res.status(500).send("no recent data");
+        return;
     }
 
     const data = analyzePrice(result.data);
