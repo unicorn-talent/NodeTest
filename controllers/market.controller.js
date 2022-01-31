@@ -2,50 +2,43 @@ const MarketPriceModel = require("../models/marketprice.model");
 const HttpException = require("../utils/HttpException.utils");
 const serviceController = require("./service.controller");
 
-const analyzePrice = (data) => {
-    const parsedData = JSON.parse(data);
-    const ret_data = {};
+const analyzePrice = (res, fsyms, tsyms) => {
+    const parsedData = JSON.parse(res.data);
+    const fsyms_arr = fsyms.split(",");
+    const tsyms_arr = tsyms.split(",");
 
-    for (const [key, value] of Object.entries(parsedData)) {
-        const marketInfo = {}; 
-        for (const [fsymsKey, fsymsValue] of Object.entries(value)) {
-            const fmarketInfo = {};
+    const fmarketInfo = {};
+
+    for (const [fsymsKey, fsymsValue] of Object.entries(parsedData)) {
+        const tmarketInfo = {};
+        if (fsyms_arr.includes(fsymsKey)) {
+
             for (const [tsymsKey, tsymsValue] of Object.entries(fsymsValue)) {
-                let tmarketInfo = {};
-                tmarketInfo = {...tmarketInfo, "CHANGE24HOUR": tsymsValue["CHANGE24HOUR"]};
-                tmarketInfo = {...tmarketInfo, "CHANGEPCT24HOUR": tsymsValue["CHANGEPCT24HOUR"]};
-                tmarketInfo = {...tmarketInfo, "OPEN24HOUR": tsymsValue["OPEN24HOUR"]};
-                tmarketInfo = {...tmarketInfo, "VOLUME24HOUR": tsymsValue["VOLUME24HOUR"]};
-                tmarketInfo = {...tmarketInfo, "VOLUME24HOURTO": tsymsValue["VOLUME24HOURTO"]};
-                tmarketInfo = {...tmarketInfo, "LOW24HOUR": tsymsValue["LOW24HOUR"]};
-                tmarketInfo = {...tmarketInfo, "HIGH24HOUR": tsymsValue["HIGH24HOUR"]};
-                tmarketInfo = {...tmarketInfo, "PRICE": tsymsValue["PRICE"]};
-                tmarketInfo = {...tmarketInfo, "SUPPLY": tsymsValue["SUPPLY"]};
-                tmarketInfo = {...tmarketInfo, "MKTCAP": tsymsValue["MKTCAP"]};
+                if (tsyms_arr.includes(tsymsKey)) {
 
-                fmarketInfo[tsymsKey] = tmarketInfo;
+                    tmarketInfo[tsymsKey] = tsymsValue;
+                }    
             }    
-            marketInfo[fsymsKey] = fmarketInfo;
+            fmarketInfo[fsymsKey] = tmarketInfo;
         }
-        ret_data[key] = marketInfo;
     }
     
-    return ret_data;
+    return fmarketInfo;
 }
 
 const getMarketPrice = async(req, res, next) => {
     const fsyms = req.query.fsyms;
     const tsyms = req.query.tsyms;
 
-    const result = await MarketPriceModel.getPrice({fsyms, tsyms});
+    const result = await MarketPriceModel.getPrice();
     if (!result.state) {
         res.status(500).send("no recent data");
         return;
     }
 
-    const data = analyzePrice(result.data);
+    const data = analyzePrice(result, fsyms, tsyms);
     
-    res.send({data});
+    res.send(data);
 }
 
 /***********************************Export*******************************************/

@@ -10,10 +10,9 @@ const requestData = async (params) => {
     const api_key = process.env.API_KEY;
     try {
         const response = await axios({url: `https://min-api.cryptocompare.com/data/pricemultifull?api_key=${api_key}&fsyms=${fsyms}&tsyms=${tsyms}`, method: "get"});
-
         return {
             state: true,
-            data: JSON.stringify(response.data)
+            data: JSON.stringify(response.data["RAW"])
         }
     }
     catch(e) {
@@ -26,9 +25,8 @@ const requestData = async (params) => {
 
 const setMarketPrice = async (params) => {
     const result = await requestData(params);
-
     if (result.state) {
-        const ret = await marketPriceModel.setPrice(result);
+        const ret = await marketPriceModel.setPrice(result.data);
         if (!ret.state) {
             console.log('data save error');
         }

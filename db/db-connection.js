@@ -9,6 +9,7 @@ const db = mysql2.createPool({
   database: process.env.DB_BASE,
   port: process.env.DB_PORT
 });
+
 const checkConnection = () => {
   db.getConnection((err, connection) => {
     if (err) {
@@ -28,6 +29,7 @@ const checkConnection = () => {
     return;
   });
 };
+
 const query = async (sql, values) => {
   checkConnection();
   return new Promise((resolve, reject) => {

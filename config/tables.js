@@ -1,4 +1,4 @@
 module.exports = {
-    tb_price: "price",
+    tb_price: "prices",
   };
   

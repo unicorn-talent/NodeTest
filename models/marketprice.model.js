@@ -1,7 +1,7 @@
 const DBConnection = require("../db/db-connection");
 const Tables = require("../config/tables");
 
-const getPrice = async (params) => {
+const getPrice = async () => {
     const sql = `SELECT * FROM ${Tables.tb_price} ORDER BY updated_at DESC LIMIT 1`;
     try {
         const result = await DBConnection.query(sql, []);
@@ -17,16 +17,17 @@ const getPrice = async (params) => {
             data: result[0].data
         }
     }catch (e) {
+        console.log(e);
         return {
             state: false
         }
     }
 }
 
-const setPrice = async (params) => {
+const setPrice = async (data) => {
     const sql = `INSERT INTO ${Tables.tb_price} (data) VALUES (?)`;
     try {
-        const result = await DBConnection.query(sql, [params.data]);
+        const result = await DBConnection.query(sql, [data]);
         return {
             state: true
         }

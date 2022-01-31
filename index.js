@@ -20,6 +20,7 @@ cron.schedule('* * * * *', function() { // every minute
     service.setMarketPrice({fsyms, tsyms});
 });
 
+
 app.use("/service", serviceRouter);
 
 app.all("*", (req, res, next) => {
