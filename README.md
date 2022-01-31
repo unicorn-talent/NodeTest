@@ -1,20 +1,26 @@
-# NodeTest
-This is backend developer test using Node.js
+# Sample Backend for Node.js
 
-## Download & Build on local
-### Clone the repository, install node packages and verify routes locally
+This repository contains a sample backend code that fetch/store the price using CRYPTOCOMPARE api and provide price api for users
 
-``` 
-//on local
+## Set up and run 
+
+### Clone
+
+Clone the repository from GitHub.
+
+```
 git clone https://github.com/unicorn-talent/NodeTest
 cd NodeTest
 npm install
 npm start
+```
 
-# env
-## DATABASE INFO
+### Get Cryptocompare api key
 
-To set database config
+If you don't have an api-key yet, [sign up for one](https://www.cryptocompare.com/) using your e-mail. And get api-key from cryptocompare
+
+
+### Set the parameters in .env:
 
 | Variable Name                     | Description                    |
 |-----------------------------------|--------------------------------|
@@ -23,13 +29,8 @@ To set database config
 | DB_USER               | root |
 | DB_PASS                  |  |
 | DB_BASE                  | test_db |
-
-## SERVER
 | SERVERPORT                   | 3001 |
-
-## CRYPTOCOMPARE API KEY
 | API_KEY                   | 895f8cd7e48043b3ecf65e1d3bfc0dfc72f5aff4e6b2dc08cbee8943ae9a0866 |
-
-## Currency
 | FSYMS                   | BTC,XRP,ETH,BCH,EOS,LTC,XMR,DASH |
 | TSYMS                   | USD,EUR,GBP,JPY,RUR |
+
