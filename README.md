@@ -14,6 +14,8 @@ npm start
 # env
 ## DATABASE INFO
 
+To set database config
+
 | Variable Name                     | Description                    |
 |-----------------------------------|--------------------------------|
 | DB_HOST                   | localhost |
