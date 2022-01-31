@@ -18,7 +18,7 @@ npm start
 ### Migrate Table
 
 ```
-npm migrate
+npm run migrate
 ```
 
 ### Get Cryptocompare api key
