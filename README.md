@@ -18,12 +18,6 @@ To set database config
 
 | Variable Name                     | Description                    |
 |-----------------------------------|--------------------------------|
-| APP_ID                   | ID of your Virgil Application. |
-| APP_KEY                  | Private key of your App that is used to sign the JWTs. |
-| APP_KEY_ID               | ID of your App Key. A unique string value that identifies your account in the Virgil Cloud. |
-
-| Variable Name                     | Description                    |
-|-----------------------------------|--------------------------------|
 | DB_HOST                   | localhost |
 | DB_PORT                  | 3306 |
 | DB_USER               | root |
