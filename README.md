@@ -15,6 +15,12 @@ npm install
 npm start
 ```
 
+### Migrate Table
+
+```
+npm migrate
+```
+
 ### Get Cryptocompare api key
 
 If you don't have an api-key yet, [sign up for one](https://www.cryptocompare.com/) using your e-mail. And get api-key from cryptocompare
